@@ -5,15 +5,15 @@ import { ePin } from './util/gpio'
 
 const eventEmitter = new EventEmitter()
 
-const selectA = new Gpio(ePin(1), 'out')
-const selectB = new Gpio(ePin(2), 'out')
-const selectC = new Gpio(ePin(3), 'out')
+const selectA = new Gpio(ePin(3), 'out')
+const selectB = new Gpio(ePin(4), 'out')
+const selectC = new Gpio(ePin(5), 'out')
 const columns = [selectA, selectB, selectC]
 
-const readA = new Gpio(ePin(7), 'in')
-const readB = new Gpio(ePin(6), 'in')
-const readC = new Gpio(ePin(5), 'in')
-const readD = new Gpio(ePin(0), 'in')
+const readA = new Gpio(ePin(0), 'in')
+const readB = new Gpio(ePin(1), 'in')
+const readC = new Gpio(ePin(2), 'in')
+const readD = new Gpio(ePin(6), 'in')
 const rows = [readA, readB, readC, readD]
 
 const keypadPins: Gpio[] = [...rows, ...columns]
@@ -35,10 +35,6 @@ let selectPin = 0
 
 function registerKeypad() {
   console.info(`GPIO is ${Gpio.accessible? '' : 'not'} available`)
-  readA.watch(determineKeyPressed)
-  readB.watch(determineKeyPressed)
-  readC.watch(determineKeyPressed)
-  readD.watch(determineKeyPressed)
   selectA.writeSync(1) // scanning initial state
   setTimeout(() => {
     // sync scanning to logic
@@ -52,6 +48,7 @@ function scan() {
   columns[selectPin].writeSync(0)
   columns[nextPin].writeSync(1)
   selectPin = nextPin
+  determineKeyPressed()
 }
 
 function determineKeyPressed() {
