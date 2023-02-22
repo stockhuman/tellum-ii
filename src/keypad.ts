@@ -35,6 +35,7 @@ let scanInterval = null
 let selectPin = 0
 
 function registerKeypad() {
+  console.info(`GPIO is ${Gpio.accessible? '' : ' not'} available`)
   readA.watch(determineKeyPressed)
   readB.watch(determineKeyPressed)
   readC.watch(determineKeyPressed)
