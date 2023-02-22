@@ -1,20 +1,19 @@
 import EventEmitter from 'events'
 import { Gpio } from 'onoff'
-import { emit } from 'process'
 
 import { ePin } from './util/gpio'
 
 const eventEmitter = new EventEmitter()
 
-const selectA = new Gpio(ePin(0), 'out')
-const selectB = new Gpio(ePin(1), 'out')
-const selectC = new Gpio(ePin(2), 'out')
+const selectA = new Gpio(ePin(1), 'out')
+const selectB = new Gpio(ePin(2), 'out')
+const selectC = new Gpio(ePin(3), 'out')
 const columns = [selectA, selectB, selectC]
 
-const readA = new Gpio(ePin(4), 'in')
-const readB = new Gpio(ePin(5), 'in')
-const readC = new Gpio(ePin(6), 'in')
-const readD = new Gpio(ePin(7), 'in')
+const readA = new Gpio(ePin(7), 'in')
+const readB = new Gpio(ePin(6), 'in')
+const readC = new Gpio(ePin(5), 'in')
+const readD = new Gpio(ePin(0), 'in')
 const rows = [readA, readB, readC, readD]
 
 const keypadPins: Gpio[] = [...rows, ...columns]
@@ -35,7 +34,7 @@ let scanInterval = null
 let selectPin = 0
 
 function registerKeypad() {
-  console.info(`GPIO is ${Gpio.accessible? '' : ' not'} available`)
+  console.info(`GPIO is ${Gpio.accessible? '' : 'not'} available`)
   readA.watch(determineKeyPressed)
   readB.watch(determineKeyPressed)
   readC.watch(determineKeyPressed)
