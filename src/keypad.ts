@@ -70,8 +70,24 @@ function determineKeyPressed() {
       if (pinD && pinD === keyStates['3']) kbe.emit('keyReleased', { key: '3' })
       break
     case 1:
+      if (pinA && pinA !== keyStates['4']) kbe.emit('keyPressed', { key: '4' })
+      if (pinA && pinA === keyStates['4']) kbe.emit('keyReleased', { key: '4' })
+      if (pinB && pinB !== keyStates['5']) kbe.emit('keyPressed', { key: '5' })
+      if (pinB && pinB === keyStates['5']) kbe.emit('keyReleased', { key: '5' })
+      if (pinC && pinC !== keyStates['6']) kbe.emit('keyPressed', { key: '6' })
+      if (pinC && pinC === keyStates['6']) kbe.emit('keyReleased', { key: '6' })
+      if (pinD && pinD !== keyStates['7']) kbe.emit('keyPressed', { key: '7' })
+      if (pinD && pinD === keyStates['7']) kbe.emit('keyReleased', { key: '7' })
       break
     case 2:
+      if (pinA && pinA !== keyStates['8']) kbe.emit('keyPressed', { key: '8' })
+      if (pinA && pinA === keyStates['8']) kbe.emit('keyReleased', { key: '8' })
+      if (pinB && pinB !== keyStates['9']) kbe.emit('keyPressed', { key: '9' })
+      if (pinB && pinB === keyStates['9']) kbe.emit('keyReleased', { key: '9' })
+      if (pinC && pinC !== keyStates['*']) kbe.emit('keyPressed', { key: '*' })
+      if (pinC && pinC === keyStates['*']) kbe.emit('keyReleased', { key: '*' })
+      if (pinD && pinD !== keyStates['#']) kbe.emit('keyPressed', { key: '#' })
+      if (pinD && pinD === keyStates['#']) kbe.emit('keyReleased', { key: '#' })
       break
 
     default:
