@@ -1,7 +1,7 @@
-import { registerKeypad, kbe } from './keypad';
+import { registerKeypad, kbe, available } from './keypad'
 
-async function setup () {
-  registerKeypad()
+async function setup() {
+  if (available) registerKeypad()
 }
 
 kbe.on('keyPressed', console.log)
