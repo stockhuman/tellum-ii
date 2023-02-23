@@ -34,14 +34,13 @@ let scanInterval = null
 let selectPin = 0
 
 function registerKeypad() {
-  console.info(`GPIO is ${Gpio.accessible? '' : 'not'} available`)
+  console.info(`GPIO is${Gpio.accessible ? '' : ' not'} available`)
   selectA.writeSync(1) // scanning initial state
   setTimeout(() => {
     // sync scanning to logic
     scanInterval = setInterval(scan, 2000)
   }, 400)
   process.on('SIGINT', unregisterKeypad)
-  process.on('SIGKILL', unregisterKeypad)
 }
 
 function scan() {
@@ -57,7 +56,7 @@ function determineKeyPressed() {
   let pinB = Boolean(readB.readSync())
   let pinC = Boolean(readC.readSync())
   let pinD = Boolean(readD.readSync())
-  console.log(pinA, pinB, pinC, pinD)
+  if (pinA || pinB || pinC || pinD) console.log(selectPin, '=>', pinA, pinB, pinC, pinD)
   switch (selectPin) {
     /** @TODO determine actual pin-to-letter combos */
     case 0:
