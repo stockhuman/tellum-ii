@@ -38,8 +38,8 @@ function registerKeypad() {
   selectA.writeSync(1) // scanning initial state
   setTimeout(() => {
     // sync scanning to logic
-    scanInterval = setInterval(scan, 2000)
-  }, 400)
+    scanInterval = setInterval(scan, 100)
+  }, 100)
   process.on('SIGINT', unregisterKeypad)
 }
 
@@ -60,38 +60,37 @@ function determineKeyPressed() {
   switch (selectPin) {
     /** @TODO determine actual pin-to-letter combos */
     case 0:
-      if (pinA && pinA !== keyStates['0']) kbe.emit('keyPressed', { key: '0' })
-      if (pinA && pinA === keyStates['0']) kbe.emit('keyReleased', { key: '0' })
-      if (pinB && pinB !== keyStates['1']) kbe.emit('keyPressed', { key: '1' })
-      if (pinB && pinB === keyStates['1']) kbe.emit('keyReleased', { key: '1' })
-      if (pinC && pinC !== keyStates['2']) kbe.emit('keyPressed', { key: '2' })
-      if (pinC && pinC === keyStates['2']) kbe.emit('keyReleased', { key: '2' })
-      if (pinD && pinD !== keyStates['3']) kbe.emit('keyPressed', { key: '3' })
-      if (pinD && pinD === keyStates['3']) kbe.emit('keyReleased', { key: '3' })
+      checkState(pinA, '0')
+      checkState(pinB, '1')
+      checkState(pinC, '2')
+      checkState(pinD, '3')
       break
     case 1:
-      if (pinA && pinA !== keyStates['4']) kbe.emit('keyPressed', { key: '4' })
-      if (pinA && pinA === keyStates['4']) kbe.emit('keyReleased', { key: '4' })
-      if (pinB && pinB !== keyStates['5']) kbe.emit('keyPressed', { key: '5' })
-      if (pinB && pinB === keyStates['5']) kbe.emit('keyReleased', { key: '5' })
-      if (pinC && pinC !== keyStates['6']) kbe.emit('keyPressed', { key: '6' })
-      if (pinC && pinC === keyStates['6']) kbe.emit('keyReleased', { key: '6' })
-      if (pinD && pinD !== keyStates['7']) kbe.emit('keyPressed', { key: '7' })
-      if (pinD && pinD === keyStates['7']) kbe.emit('keyReleased', { key: '7' })
+      checkState(pinA, '4')
+      checkState(pinB, '5')
+      checkState(pinC, '6')
+      checkState(pinD, '7')
       break
     case 2:
-      if (pinA && pinA !== keyStates['8']) kbe.emit('keyPressed', { key: '8' })
-      if (pinA && pinA === keyStates['8']) kbe.emit('keyReleased', { key: '8' })
-      if (pinB && pinB !== keyStates['9']) kbe.emit('keyPressed', { key: '9' })
-      if (pinB && pinB === keyStates['9']) kbe.emit('keyReleased', { key: '9' })
-      if (pinC && pinC !== keyStates['*']) kbe.emit('keyPressed', { key: '*' })
-      if (pinC && pinC === keyStates['*']) kbe.emit('keyReleased', { key: '*' })
-      if (pinD && pinD !== keyStates['#']) kbe.emit('keyPressed', { key: '#' })
-      if (pinD && pinD === keyStates['#']) kbe.emit('keyReleased', { key: '#' })
+      checkState(pinA, '8')
+      checkState(pinB, '9')
+      checkState(pinC, '*')
+      checkState(pinD, '#')
       break
 
     default:
       break
+  }
+}
+
+const checkState = (pin, key) => {
+  if (pin && pin !== keyStates[key]) {
+    kbe.emit('keyPressed', { key })
+    keyStates[key] = pin
+  }
+  if (!pin && pin !== keyStates[key]) {
+    kbe.emit('keyReleased', { key: key })
+    keyStates[key] = pin
   }
 }
 
