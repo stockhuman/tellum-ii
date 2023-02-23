@@ -3,7 +3,7 @@ import { Gpio } from 'onoff'
 
 import { ePin } from './util/gpio'
 
-const eventEmitter = new EventEmitter()
+export const kbe = new EventEmitter()
 
 const selectA = new Gpio(ePin(3), 'out')
 const selectB = new Gpio(ePin(4), 'out')
@@ -38,17 +38,17 @@ function registerKeypad() {
   selectA.writeSync(1) // scanning initial state
   setTimeout(() => {
     // sync scanning to logic
-    scanInterval = setInterval(scan, 4)
-  }, 4)
+    scanInterval = setInterval(scan, 2000)
+  }, 400)
   process.on('SIGINT', unregisterKeypad)
 }
 
 function scan() {
+  determineKeyPressed()
   let nextPin = (selectPin + 1) % columns.length
   columns[selectPin].writeSync(0)
   columns[nextPin].writeSync(1)
   selectPin = nextPin
-  determineKeyPressed()
 }
 
 function determineKeyPressed() {
@@ -60,14 +60,14 @@ function determineKeyPressed() {
   switch (selectPin) {
     /** @TODO determine actual pin-to-letter combos */
     case 0:
-      if (pinA && pinA !== keyStates['0']) eventEmitter.emit('keyPressed', { key: '0' })
-      if (pinA && pinA === keyStates['0']) eventEmitter.emit('keyReleased', { key: '0' })
-      if (pinB && pinB !== keyStates['1']) eventEmitter.emit('keyPressed', { key: '1' })
-      if (pinB && pinB === keyStates['1']) eventEmitter.emit('keyReleased', { key: '1' })
-      if (pinC && pinC !== keyStates['2']) eventEmitter.emit('keyPressed', { key: '2' })
-      if (pinC && pinC === keyStates['2']) eventEmitter.emit('keyReleased', { key: '2' })
-      if (pinD && pinD !== keyStates['3']) eventEmitter.emit('keyPressed', { key: '3' })
-      if (pinD && pinD === keyStates['3']) eventEmitter.emit('keyReleased', { key: '3' })
+      if (pinA && pinA !== keyStates['0']) kbe.emit('keyPressed', { key: '0' })
+      if (pinA && pinA === keyStates['0']) kbe.emit('keyReleased', { key: '0' })
+      if (pinB && pinB !== keyStates['1']) kbe.emit('keyPressed', { key: '1' })
+      if (pinB && pinB === keyStates['1']) kbe.emit('keyReleased', { key: '1' })
+      if (pinC && pinC !== keyStates['2']) kbe.emit('keyPressed', { key: '2' })
+      if (pinC && pinC === keyStates['2']) kbe.emit('keyReleased', { key: '2' })
+      if (pinD && pinD !== keyStates['3']) kbe.emit('keyPressed', { key: '3' })
+      if (pinD && pinD === keyStates['3']) kbe.emit('keyReleased', { key: '3' })
       break
     case 1:
       break
