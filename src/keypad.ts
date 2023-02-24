@@ -7,14 +7,14 @@ export const available = Gpio.accessible
 export const kbe = new EventEmitter()
 
 const selectA = new Gpio(ePin(3), 'out')
-const selectB = new Gpio(ePin(2), 'out')
-const selectC = new Gpio(ePin(1), 'out')
+const selectB = new Gpio(ePin(4), 'out')
+const selectC = new Gpio(ePin(5), 'out')
 const columns = [selectA, selectB, selectC]
 
-const readA = new Gpio(ePin(0), 'in')
-const readB = new Gpio(ePin(6), 'in')
-const readC = new Gpio(ePin(5), 'in')
-const readD = new Gpio(ePin(4), 'in')
+const readA = new Gpio(ePin(6), 'in')
+const readB = new Gpio(ePin(0), 'in')
+const readC = new Gpio(ePin(1), 'in')
+const readD = new Gpio(ePin(2), 'in')
 const rows = [readA, readB, readC, readD]
 
 const keypadPins: Gpio[] = [...rows, ...columns]
