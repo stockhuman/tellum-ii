@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "The community library of explorable sound",
   "main": "index.js",
-  "dependencies": {
-    "onoff": "^6.0.3"
-  },
   "devDependencies": {
     "@types/node": "^18.14.0",
     "prettier": "^2.8.4",
@@ -25,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/stockhuman/tellum-ii/issues"
   },
-  "homepage": "https://github.com/stockhuman/tellum-ii#readme"
+  "homepage": "https://github.com/stockhuman/tellum-ii#readme",
+  "dependencies": {
+    "serialport": "^10.5.0"
+  }
 }
