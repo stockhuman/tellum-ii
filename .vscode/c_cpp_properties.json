@@ -1,0 +1,51 @@
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "/Users/mike/Documents/GitHub/tellum-ii/arduino/include",
+                "/Users/mike/Documents/GitHub/tellum-ii/arduino/src",
+                "/Users/mike/Documents/Arduino/libraries/**",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/variants/standard",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/Wire/src"
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "/Users/mike/Documents/GitHub/tellum-ii/arduino/include",
+                    "/Users/mike/Documents/GitHub/tellum-ii/arduino/src",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60106",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "c11",
+            "cppStandard": "c++11",
+            "compilerPath": "/Users/mike/.platformio/packages/toolchain-atmelavr/bin/avr-gcc",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}

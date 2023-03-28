@@ -1,11 +1,11 @@
 import { testAudio } from './audio'
-import { registerKeypad, kbe } from './keypad'
+import { registerHardware, hwe } from './hardware'
 
 async function setup() {
-  registerKeypad()
+  registerHardware()
   testAudio()
 }
 
-kbe.on('keyPressed', console.log)
+hwe.on('event', console.log)
 
 setup()
