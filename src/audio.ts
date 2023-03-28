@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import AudioRecorder from 'node-audiorecorder'
+import AudioRecorder from './audiorecorder'
 
-const audioRecorder = new AudioRecorder({ program: 'arecord', device: 'hw:1,0' }, console)
+const audioRecorder = new AudioRecorder({ rate: 8000 }, console)
 
 export function testAudio() {
   const audioDir = './audio-test'
@@ -14,13 +14,7 @@ export function testAudio() {
   audioRecorder.on('error', () => console.warn('Recording error.'))
   audioRecorder.on('end', () => console.warn('Recording ended.'))
 
-  const fileName = path.join(
-    audioDir,
-    Math.random()
-      .toString(36)
-      .replace(/[^0-9a-zA-Z]+/g, '')
-      .concat('.wav'),
-  )
+  const fileName = path.join(audioDir, `${Date.now()}.wav`)
   console.log('Writing new recording file at:', fileName)
   const fileStream = fs.createWriteStream(fileName, { encoding: 'binary' })
   audioRecorder.start().stream().pipe(fileStream)
@@ -30,4 +24,7 @@ export function testAudio() {
 }
 
 // this works:
-// arecord -D hw:1,0 -d 10 -f dat audio.wav
+// sudo arecord -D hw:1,0 -d 10 -f dat audio.wav
+
+// and this works for playback
+// sudo aplay -D hw:1,0 audio.wav 
