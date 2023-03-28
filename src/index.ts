@@ -1,6 +1,6 @@
 import { testAudio } from './audio'
 import { db } from './database'
-import { registerHardware, hwe } from './hardware'
+import { registerHardware, hwe, HWEvent } from './hardware'
 
 const database = db
 let location = { x: 0, y: 0 }
@@ -10,8 +10,11 @@ async function setup() {
   await testAudio()
 }
 
-function handleHWEvent(event) {
-  console.log(event)
+
+function handleHWEvent(event: HWEvent) {
+  switch (event.type) {
+    
+  }
 }
 
 hwe.on('event', handleHWEvent)
