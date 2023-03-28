@@ -11,7 +11,7 @@ type AudioRecorderOptions = {
 
 class AudioRecorder extends EventEmitter {
   program: 'arecord'
-  device: string
+  device?: string
   rate: number
   logger: any
 
@@ -22,7 +22,7 @@ class AudioRecorder extends EventEmitter {
     super()
 
     this.program = 'arecord'
-    this.device = options.device || 'hw:1,0'
+    this.device = options.device
     this.rate = options.rate || 16000
     this.childProcess = null
     this.logger = logger
@@ -53,11 +53,6 @@ class AudioRecorder extends EventEmitter {
       '-f',
       'dat',
     )
-
-    if (this.logger) {
-      // Log command.
-      this.logger.log(`[REC] Command '${this.program} ${this.command.arguments.join(' ')}'`)
-    }
 
     return this
   }
