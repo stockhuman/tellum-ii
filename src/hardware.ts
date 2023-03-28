@@ -1,7 +1,7 @@
 import EventEmitter from 'events'
 import { SerialPort } from 'serialport'
 
-export const hwe = new EventEmitter()
+const hwe = new EventEmitter()
 const serial = new SerialPort({ path: '/dev/ttyUSB0', baudRate: 9600, autoOpen: true })
 
 function registerHardware() {
@@ -18,4 +18,9 @@ const readBuf = (data: Buffer) => {
   hwe.emit('event', { type, key })
 }
 
-export { registerHardware }
+type HWEvent = {
+  type: 'pressed' | 'released' | 'held' | 'hook' | 'unhook'
+  key?: '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '*' | '#'
+}
+
+export { registerHardware, hwe, HWEvent }
