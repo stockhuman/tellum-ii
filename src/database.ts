@@ -15,9 +15,7 @@ if (!fs.existsSync(dbDir)) {
 }
 
 if (!fs.existsSync(dbFilePath)) {
-  const dbBlank = {
-    items: [],
-  }
+  const dbBlank = []
   fs.writeFileSync(dbFilePath, JSON.stringify(dbBlank), { encoding: 'utf-8' })
 }
 

@@ -6,7 +6,7 @@
     "target": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "app"
-  },
-  "lib": ["ES2015"]
+    "outDir": "app",
+    "lib": ["ES2021"]
+  }
 }

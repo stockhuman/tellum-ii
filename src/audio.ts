@@ -16,7 +16,32 @@ export async function play(id: string) {
   })
 }
 
-export async function testAudio() {
+export async function say(text: string) {
+  // lmao
+  let e = exec(`espeak-ng -z "${text.replaceAll('-', 'negative ')}"`)
+  return new Promise((resolve, reject) => {
+    e.addListener('exit', resolve)
+    e.addListener('close', resolve)
+    e.addListener('error', reject)
+  })
+}
+
+export function stop() {
+  exec('killall aplay; killall espeak-ng')
+}
+
+/**
+ * Returns an audiorecorder stream.
+ * One must call `stop()` on it.
+ */
+export function record(id: string) {
+  const fileName = path.resolve(__dirname, `../data/audio/${id}.wav`)
+  const fileStream = fs.createWriteStream(fileName, { encoding: 'binary' })
+  audioRecorder.start().stream().pipe(fileStream)
+  return audioRecorder
+}
+
+export async function testAudio(skiprec = false) {
   const audioDir = path.resolve(__dirname, '../data/audio')
 
   if (!fs.existsSync(audioDir)) {
@@ -26,15 +51,17 @@ export async function testAudio() {
   console.info('[Audio] Playing sound')
   await play('sinetest')
 
-  const fileName = path.join(audioDir, `test.wav`)
-  console.info('[Audio] Testing mic, writing to', fileName)
-  const fileStream = fs.createWriteStream(fileName, { encoding: 'binary' })
-  audioRecorder.start().stream().pipe(fileStream)
-  await delay(5000)
-  audioRecorder.stop()
-  await delay(500)
-  await play('test')
-  console.info('[Audio] Mic test complete')
+  if (!skiprec) {
+    const fileName = path.join(audioDir, `test.wav`)
+    console.info('[Audio] Testing mic, writing to', fileName)
+    const fileStream = fs.createWriteStream(fileName, { encoding: 'binary' })
+    audioRecorder.start().stream().pipe(fileStream)
+    await delay(5000)
+    audioRecorder.stop()
+    await delay(500)
+    await play('test')
+    console.info('[Audio] Mic test complete')
+  }
 }
 
 function delay(ms: number) {
