@@ -83,7 +83,7 @@ async function nav(key: HWEvent['key']) {
   if (key !== '*' && key !== '#' && key !== '5') {
     if (recorder) recorder.stop()
     console.log('nav:', location.x, location.y)
-    play('ui-up')
+    play('ui/up')
     say(`${location.x}, ${location.y}`)
   }
 
@@ -112,7 +112,7 @@ async function nav(key: HWEvent['key']) {
         ...location,
         time: new Date().toISOString(),
       })
-      await play('mech')
+      await play('ui/mech')
       say('thanks')
       currentID = null
     } else {
@@ -134,7 +134,7 @@ async function nav(key: HWEvent['key']) {
 }
 
 function intro() {
-  play('welcome')
+  play('ui/welcome')
   say('Welcome')
   isHooked = false
   hasCompletedIntro = true

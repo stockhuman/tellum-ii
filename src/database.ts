@@ -38,7 +38,8 @@ class Database {
 
     // we find and add any manually curated sounds first
     let spot = spots.find(s => s.x === x && s.y === y)
-    if (spot) res.push(spot.file)
+    // custom audio is found at audio/custom/filename.wav
+    if (spot) res.push('custom' + spot.file)
 
     // add user files
     let userSounds = this.items.filter(s => s.x === x && s.y === y).map(s => s.file)
