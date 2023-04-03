@@ -6,14 +6,19 @@ const spots = [
   { x: 41, y: 2, file: 'discoelysium' },
   { x: 16, y: 99, file: 'amishparadise' },
   { x: 1, y: 61, file: 'goldenratio' },
-  { x: 14, y: 88, file: 'rihannawhatareyoudoinghere' },
+  { x: 14, y: 88, file: 'arianawhatareyoudoinghere' },
   { x: 19, y: 73, file: 'jamesblunt' },
-  { x: 19, y: 97, file: 'baby' },
+  { x: 19, y: 97, file: 'forgive' },
   { x: 40, y: 3, file: 'savingme' },
-  { x: 196, y: 96, file: 'gold' },
   { x: 20, y: 3, file: 'whatsfordinner' },
-  { x: 3, y: 14, file: 'pi' },
   { x: 3, y: 43, file: 'halo' },
+  { x: 11, y: 11, file: 'flute' },
+  { X: 3, y: 5, file: 'frontierphsychiatrist' },
+  { x: 6, y: 2, file: 'beware' },
+  { x: -6, y: -1, file: 'takefive' },
+  { x: 4, y: 0, file: 'therain' },
+  { x: -3, y: 0, file: 'cenestpasbon' },
+  { x: 1, y: 6, file: 'guillotine' },
 ]
 
 export default spots
