@@ -134,7 +134,7 @@ async function nav(key: HWEvent['key']) {
 }
 
 function intro() {
-  play('ui/welcome')
+  play('ui/bell')
   say('Welcome')
   isHooked = false
   hasCompletedIntro = true
