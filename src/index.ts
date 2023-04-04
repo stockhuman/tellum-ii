@@ -1,5 +1,3 @@
-import { readFile } from 'fs'
-import { resolve } from 'path'
 import { play, record, say, stop, testAudio } from './audio'
 import AudioRecorder from './audiorecorder'
 import { db } from './database'
@@ -26,7 +24,8 @@ async function setup() {
   state.holdRepeater = setInterval(() => {
     // repeat for quick nav
     if (state.isHolding && state.heldKey !== '5' && state.heldKey !== '*' && state.heldKey !== '0') {
-      nav(state.heldKey)
+      if (!state.isEnteringCoordinate)
+        nav(state.heldKey)
     }
   }, 200)
 }
@@ -67,16 +66,11 @@ async function nav(key: HWEvent['key']) {
 
   // play the tone before recording starts
   if (key === '*') {
-    console.log('pressed *')
-    await play('ring')
+    play('ring')
     return
   }
 
   play(`ui/${key}`)
-  // check for files at the current coordinate, LED on if true
-  const files = database.check(state.location.x, state.location.y)
-  if (files.length > 0) cmd('f')
-  else cmd('d')
 
   if (state.isEnteringCoordinate) {
     if (state.coordinateString.length > 0 && key === '#' && state.coordinateString.split('#').length === 2) {
@@ -92,7 +86,7 @@ async function nav(key: HWEvent['key']) {
     }
     if (key === '#') {
       // will not have '#' appended to it yet
-      say(`X set to ${state.coordinateString}, now enter the Y value and press pound to navigate`)
+      say(`${state.coordinateString}, now enter the Y value and press pound to navigate`)
     }
     state.coordinateString += key
     return
@@ -131,7 +125,11 @@ async function nav(key: HWEvent['key']) {
       break
   }
 
-  console.log('heldkey',state.heldKey)
+  // check for files at the current coordinate, LED on if true
+  const files = database.check(state.location.x, state.location.y)
+  if (files.length > 0) cmd('f')
+  else cmd('d')
+
   if (state.isHolding && key === '5') {
     state.isEnteringCoordinate = true
     say(`Please enter the first number of the coordinate you wish to travel to, then press the pound key.`)
@@ -147,7 +145,6 @@ async function nav(key: HWEvent['key']) {
   if (await tutorial()) {
     // normal directional navigation
     if (key !== '#' && key !== '5') {
-      if (state.recorder) state.recorder.stop()
       console.log('nav:', state.location.x, state.location.y)
       play('ui/nav')
       say(`${state.location.x}, ${state.location.y}`)
@@ -187,25 +184,26 @@ async function startRecording() {
   state.recorder = record(state.currentID)
 }
 
-async function stopRecording () {
-  console.log('stopped recording', state.currentID)
-  // stop recorder
-  state.recorder.stop()
-  readFile(resolve(__dirname, `../audio/${state.currentID}.wav`), (err, data) => {
-    if (err) console.log(err)
-    console.log(data)
-  })
-
-  
-  // database.add({
-  //   file: state.currentID,
-  //   ...state.location,
-  //   time: new Date().toISOString(),
-  // })
-  await play('ui/mech')
-  say('thanks')
-  state.currentID = null
-  cmd('s')
+async function stopRecording() {
+  if (state.recorder) {
+    // stop recorder
+    state.recorder.stop()
+    database.add({
+      file: state.currentID,
+      ...state.location,
+      time: new Date().toISOString(),
+    })
+    await play('ui/mech')
+    say('thanks')
+    state.currentID = null
+    cmd('s')
+    if (database.check(state.location.x, state.location.y).length > 0) cmd('f')
+    else cmd('d')
+  } else {
+    // bad state
+    state.currentID = null
+    cmd('s')
+  }
 }
 
 async function tutorial() {
