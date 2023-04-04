@@ -17,14 +17,21 @@ Keypad keypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
 const int HOOKOUT = 12;
 const int HOOKSENSE = 11;
+const int FLASH = 10;
+const int REC = 9;
 
-bool hookState = false;
+int serialInput = 0;
+bool hookState = false; // true = hooked
 
 void setup() {
   Serial.begin(9600);
   pinMode(HOOKOUT, OUTPUT);
   pinMode(HOOKSENSE, INPUT_PULLUP);
   digitalWrite(HOOKOUT, LOW);
+  pinMode(FLASH, OUTPUT);
+  digitalWrite(FLASH, LOW); 
+  pinMode(REC, OUTPUT);
+  digitalWrite(REC, LOW); 
   keypad.addEventListener(keypadEvent); // Add an event listener for this keypad
 }
 
@@ -32,9 +39,26 @@ void loop() {
   char key = keypad.getKey();
   int state = digitalRead(HOOKSENSE);
   if (state != hookState) {
-    Serial.println(state ? "hook" : "unhook");
+    Serial.println(state ? "unhook" : "hook");
     hookState = state;
   }
+  
+  if (Serial.available() > 0) {
+    serialInput = Serial.read();
+    if (serialInput == 102) { // pass "f"
+      digitalWrite(FLASH, HIGH);
+    }
+    if (serialInput == 100) { // pass "d" (for dark)
+      digitalWrite(FLASH, LOW); 
+    }
+    if (serialInput == 114) { // pass "r" (for RECORD)
+      digitalWrite(REC, HIGH); 
+    }
+    if (serialInput == 115) { // pass "s" (for STOP)
+      digitalWrite(REC, LOW); 
+    }
+  }
+  
   delay(10);
 }
 
