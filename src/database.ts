@@ -30,7 +30,6 @@ class Database {
   items: Item[]
   constructor() {
     this.items = JSON.parse(fs.readFileSync(dbFilePath, { encoding: 'utf-8' }))
-    console.log(this.items)
   }
 
   check(x: number, y: number) {
@@ -39,7 +38,7 @@ class Database {
     // we find and add any manually curated sounds first
     let spot = spots.find(s => s.x === x && s.y === y)
     // custom audio is found at audio/custom/filename.wav
-    if (spot) res.push('custom' + spot.file)
+    if (spot) res.push('custom/' + spot.file)
 
     // add user files
     let userSounds = this.items.filter(s => s.x === x && s.y === y).map(s => s.file)
