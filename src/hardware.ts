@@ -9,6 +9,14 @@ function registerHardware() {
   serial.on('data', readBuf)
 }
 
+// controls serial
+function cmd(type: 'f' | 'd' | 'r' | 's') {
+  // presently "f" turns on a light, "d" disables it
+  if (!serial.write(type, 'ascii')) {
+    serial.drain()
+  }
+}
+
 const readBuf = (data: Buffer) => {
   const string = data.toString('ascii').trim()
   const parts = string.split(' ')
@@ -23,4 +31,4 @@ type HWEvent = {
   key?: '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9' | '*' | '#'
 }
 
-export { registerHardware, hwe, HWEvent }
+export { registerHardware, cmd, hwe, HWEvent }
