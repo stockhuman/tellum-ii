@@ -1,24 +1,29 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
 {
     "configurations": [
         {
             "name": "PlatformIO",
             "includePath": [
-                "/Users/mike/Documents/GitHub/tellum-ii/arduino/include",
-                "/Users/mike/Documents/GitHub/tellum-ii/arduino/src",
-                "/Users/mike/Documents/Arduino/libraries/**",
+                "/Users/mike/Documents/GitHub/tellum-ii/include",
+                "/Users/mike/Documents/GitHub/tellum-ii/src",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/cores/arduino",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/variants/standard",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/HID/src",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
                 "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
-                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/Wire/src"
+                "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                ""
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": true,
                 "path": [
-                    "/Users/mike/Documents/GitHub/tellum-ii/arduino/include",
-                    "/Users/mike/Documents/GitHub/tellum-ii/arduino/src",
+                    "/Users/mike/Documents/GitHub/tellum-ii/include",
+                    "/Users/mike/Documents/GitHub/tellum-ii/src",
                     "/Users/mike/.platformio/packages/framework-arduino-avr/cores/arduino",
                     "/Users/mike/.platformio/packages/framework-arduino-avr/variants/standard",
                     "/Users/mike/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
